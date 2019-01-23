@@ -13,7 +13,7 @@ $(document).ready(function () {
         for (let tweet = 0; tweet < tweets.length; tweet++) {
             // calls createTweetElement for each tweet
             // takes return value and appends it to the tweets container
-            $('.container').append(createTweetElement(tweets[tweet]))
+            $('.container .posted-tweets').prepend(createTweetElement(tweets[tweet]))
         }
     }
 
@@ -58,7 +58,7 @@ $(document).ready(function () {
                 data: $(this).serialize()
             })
                 .done(function () {
-                    console.log("post sent!")
+                    loadTweets()
                 })
         }
     });
@@ -80,6 +80,5 @@ $(document).ready(function () {
                 })
         });
     }
-    loadTweets();
 });
 
