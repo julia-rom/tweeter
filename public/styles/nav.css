@@ -6,6 +6,7 @@
     background-color: #00a087;
     padding-left: 2em;
     padding-right: 2em;
+    z-index: 999;
 }
 
 #nav-bar .header {

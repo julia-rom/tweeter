@@ -6,66 +6,20 @@
 
 // Test / driver code (temporary). Eventually will get this from the server.
 $(document).ready(function () {
-    const tweetData = [
-        {
-            "user": {
-                "name": "Newton",
-                "avatars": {
-                    "small": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
-                    "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
-                    "large": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
-                },
-                "handle": "@SirIsaac"
-            },
-            "content": {
-                "text": "If I have seen further it is by standing on the shoulders of giants"
-            },
-            "created_at": 1461116232227
-        },
-        {
-            "user": {
-                "name": "Descartes",
-                "avatars": {
-                    "small": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_50.png",
-                    "regular": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc.png",
-                    "large": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_200.png"
-                },
-                "handle": "@rd"
-            },
-            "content": {
-                "text": "Je pense , donc je suis"
-            },
-            "created_at": 1461113959088
-        },
-        {
-            "user": {
-                "name": "Johann von Goethe",
-                "avatars": {
-                    "small": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_50.png",
-                    "regular": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1.png",
-                    "large": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_200.png"
-                },
-                "handle": "@johann49"
-            },
-            "content": {
-                "text": "Es ist nichts schrecklicher als eine tätige Unwissenheit."
-            },
-            "created_at": 1461113796368
-        }
-    ]
 
+    //Displays all tweets 
     function renderTweets(tweets) {
         // loops through tweets
-        for (let tweet = 0; tweet < tweetData.length; tweet++) {
+        for (let tweet = 0; tweet < tweets.length; tweet++) {
             // calls createTweetElement for each tweet
             // takes return value and appends it to the tweets container
             $('.container').append(createTweetElement(tweets[tweet]))
         }
     }
 
-
+    //Creates individual tweet container (name, avatar, tweet, username) after tweet is submitted
     function createTweetElement(tweet) {
-        //passes individual tweet container (name, avatar, tweet, username)
+        var tweetDate = new Date(tweet.created_at);
         var $tweetPassed = `
  <article class="posted-tweet">
       <header>
@@ -77,20 +31,55 @@ $(document).ready(function () {
                 <p>${tweet.content.text}</p>
             </div>
             <footer>
-                ${tweet.created_at}
-      </footer>
-    </article >
-            `
-        return $tweetPassed;
+                ${tweetDate.toDateString()}
+      </footer >
+    </article >`
 
+        return $tweetPassed;
     }
 
-    // var $tweet = createTweetElement(tweetData[0]);
+
+    // Ajax post request to submit tweet
+
+    $('.new-tweet form').on('submit', function (event) {
+        var counter = +$(this).children('.counter')['0'].textContent
+        event.preventDefault()
+        if (counter === 140) {
+            return alert("You didn't type anything in!");
+        }
+        else if (counter < 0) {
+            return alert("Your tweet is too long!");
+        }
+        else {
+
+            $.ajax({
+                method: "POST",
+                url: "/tweets",
+                data: $(this).serialize()
+            })
+                .done(function () {
+                    console.log("post sent!")
+                })
+        }
+    });
 
 
-    // Test / driver code (temporary)
-    // console.log($tweet); // to see what it looks like
-    // $('.container').append($tweet); // to add it to the page so we can make sure it's got all the right elements, classes, etc.
 
-    renderTweets(tweetData);
+
+    //fetches new tweets from tweets page
+    function loadTweets() {
+        $('.new-tweet form').on('submit', function (event) {
+            event.preventDefault()
+            $.ajax({
+                method: "GET",
+                url: "/tweets",
+                dataType: "json"
+            })
+                .done(function (tweetData) {
+                    renderTweets(tweetData);
+                })
+        });
+    }
+    loadTweets();
 });
+
