@@ -5,7 +5,16 @@
  */
 
 // Test / driver code (temporary). Eventually will get this from the server.
+
+//Prevents cross-site scripting
+function escape(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+}
+
 $(document).ready(function () {
+
 
     //Displays all tweets 
     function renderTweets(tweets) {
@@ -21,20 +30,19 @@ $(document).ready(function () {
     function createTweetElement(tweet) {
         var tweetDate = new Date(tweet.created_at);
         var $tweetPassed = `
- <article class="posted-tweet">
-      <header>
-        <img src=${tweet.user.avatars.small} alt="Tula">
-        <h2>${tweet.user.name}</h2>
-        <span>${tweet.user.handle}</span>
-      </header >
+    <article class="posted-tweet">
+        <header>
+            <img src=${tweet.user.avatars.small} alt="Tula">
+            <h2>${tweet.user.name}</h2>
+            <span>${tweet.user.handle}</span>
+        </header >
             <div class="tweet-space">
-                <p>${tweet.content.text}</p>
+                <p>${escape(tweet.content.text)}</p>
             </div>
             <footer>
                 ${tweetDate.toDateString()}
-      </footer >
+            </footer >
     </article >`
-
         return $tweetPassed;
     }
 
@@ -80,5 +88,11 @@ $(document).ready(function () {
                 })
         });
     }
+
+
+    //toggles new-tweet container when you click compose button
+    $('#nav-bar button').on('click', function () {
+        $('.container .new-tweet').slideToggle(200);
+    });
 });
 
