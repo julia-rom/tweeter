@@ -26,23 +26,26 @@ body {
 
 h2 {
   margin: 0;
-  border-bottom: 2px black;
-  border-bottom-style: double;
 }
 
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
 
+/* Main container that holds all tweets */
+
 .container {
   position: relative;
   top: 81px;
   width: 450px;
-  height: 400px;
+  height: 600px;
   background-color: white;
   margin: auto;
   padding: 60px 40px;
+  z-index: -1;
 }
+
+/* Compose a tweet container */
 
 .container .new-tweet {
   background-color: #eeeeee;
@@ -51,6 +54,12 @@ h2 {
   border-radius: 6px;
   border-width: 2px;
   border-color: #CECECE;
+}
+
+.new-tweet #compose-header {
+  margin: 0;
+  border-bottom: 2px black;
+  border-bottom-style: double;
 }
 
 .new-tweet form {
@@ -67,4 +76,64 @@ h2 {
   padding: 2% 0px;
   font-style: italic;
   font-size: 0.9em;
+}
+
+.new-tweet form .overCount {
+  color: red;
+}
+
+/* Posted Tweets container */
+
+.container .posted-tweet {
+  margin-top: 15px;
+  height: 180px;
+  background-color: white;
+  border-style: solid;
+  border-radius: 6px;
+  border-width: 2px;
+  border-color: #CECECE;
+}
+
+.container .posted-tweet:hover {
+  opacity: 0.7;
+}
+
+.container .posted-tweet header {
+  background-color: #eeeeee;
+  padding: 10px 10px;
+  height: 76px;
+}
+
+.container .posted-tweet h2 {
+  color: #657E85;
+  display: inline-block;
+  padding-left: 10px;
+}
+
+.container .posted-tweet header img {
+  height: 55px;
+  border-radius: 6px;
+  float: left;
+}
+
+.container .posted-tweet p {
+  color: #224751;
+}
+
+.container .posted-tweet header span {
+  float: right;
+  color: #A8A8A8;
+  padding-top: 10px;
+}
+
+.container .posted-tweet .tweet-space {
+  padding: 10px;
+}
+
+.container .posted-tweet footer {
+  font-size: small;
+  padding-left: 10px;
+  padding-top: 5px;
+  border-top: 1px #e7e5e5;
+  border-top-style: solid;
 }
