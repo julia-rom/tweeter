@@ -15,7 +15,6 @@ function escape(str) {
 
 $(document).ready(function () {
 
-
     //Displays all tweets 
     function renderTweets(tweets) {
         // loops through tweets
@@ -53,12 +52,14 @@ $(document).ready(function () {
         var counter = +$(this).children('.counter')['0'].textContent
         event.preventDefault()
         if (counter === 140) {
-            return alert("You didn't type anything in!");
+            $('.container .new-tweet .error-msg').text("You didn't type anything!");
         }
         else if (counter < 0) {
-            return alert("Your tweet is too long!");
+
+            $('.container .new-tweet .error-msg').text("Your tweet is over the 140 characters!");
         }
         else {
+            $('.container .new-tweet .error-msg').text("");
 
             $.ajax({
                 method: "POST",
@@ -76,23 +77,21 @@ $(document).ready(function () {
 
     //fetches new tweets from tweets page
     function loadTweets() {
-        $('.new-tweet form').on('submit', function (event) {
-            event.preventDefault()
-            $.ajax({
-                method: "GET",
-                url: "/tweets",
-                dataType: "json"
+        $.ajax({
+            method: "GET",
+            url: "/tweets",
+            dataType: "json"
+        })
+            .done(function (tweetData) {
+                renderTweets(tweetData);
             })
-                .done(function (tweetData) {
-                    renderTweets(tweetData);
-                })
-        });
     }
 
 
     //toggles new-tweet container when you click compose button
     $('#nav-bar button').on('click', function () {
         $('.container .new-tweet').slideToggle(200);
+        $('.container .new-tweet form textarea').focus();
     });
 });
 
