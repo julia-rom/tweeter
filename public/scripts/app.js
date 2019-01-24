@@ -15,6 +15,21 @@ function escape(str) {
 
 $(document).ready(function () {
 
+    //fetches new tweets from tweets page
+    function loadTweets() {
+        $('.posted-tweets').empty();
+        $.ajax({
+            method: "GET",
+            url: "/tweets",
+            dataType: "json"
+        })
+            .done(function (tweetData) {
+                renderTweets(tweetData);
+            })
+    }
+
+    loadTweets();
+
     //Displays all tweets 
     function renderTweets(tweets) {
         // loops through tweets
@@ -60,7 +75,8 @@ $(document).ready(function () {
         }
         else {
             $('.container .new-tweet .error-msg').text("");
-
+            //once a form is submitted loadedTweets only prepends the most recent post
+            firstLoad = false;
             $.ajax({
                 method: "POST",
                 url: "/tweets",
@@ -72,21 +88,8 @@ $(document).ready(function () {
         }
     });
 
-
-
-
-    //fetches new tweets from tweets page
-    function loadTweets() {
-        $.ajax({
-            method: "GET",
-            url: "/tweets",
-            dataType: "json"
-        })
-            .done(function (tweetData) {
-                renderTweets(tweetData);
-            })
-    }
-
+    //hides compose tweet section on page load 
+    $('.new-tweet').hide()
 
     //toggles new-tweet container when you click compose button
     $('#nav-bar button').on('click', function () {
