@@ -55,6 +55,11 @@ $(document).ready(function () {
             </div>
             <footer>
                 ${tweetDate.toDateString()}
+                <span class="icons">
+                <img src="/images/flag.png">
+                <img src="/images/retweet.png">
+                <img src="/images/like.png">
+                </span>
             </footer >
     </article >`
         return $tweetPassed;
@@ -89,11 +94,18 @@ $(document).ready(function () {
     });
 
     //hides compose tweet section on page load 
-    $('.new-tweet').hide()
+    $('.new-tweet').hide();
 
     //toggles new-tweet container when you click compose button
     $('#nav-bar button').on('click', function () {
         $('.container .new-tweet').slideToggle(200);
         $('.container .new-tweet form textarea').focus();
     });
+
+    //hides icons unless you hover over a posted-tweet container
+    $('.container .posted-tweet footer .icons').hide();
+    $('.container .posted-tweet').hover(function () {
+        $('.container .posted-tweet footer .icons').fadeIn(200);
+    });
 });
+

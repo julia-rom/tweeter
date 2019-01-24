@@ -138,7 +138,17 @@ h2 {
   font-size: small;
   padding-left: 10px;
   padding-top: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 12px;
   border-top: 1px #e7e5e5;
   border-top-style: solid;
+}
+
+.container .posted-tweet footer .icons {
+  float: right;
+  margin-right: 10px;
+}
+
+.container .posted-tweet footer .icons img {
+  height: 18px;
+  padding-left: 4px;
 }
