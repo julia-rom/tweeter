@@ -94,4 +94,3 @@ $(document).ready(function () {
         $('.container .new-tweet form textarea').focus();
     });
 });
-
