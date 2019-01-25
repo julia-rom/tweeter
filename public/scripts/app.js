@@ -89,6 +89,7 @@ $(document).ready(function () {
             })
                 .done(function () {
                     loadTweets()
+                    $('.new-tweet form textarea').val('');
                 })
         }
     });
