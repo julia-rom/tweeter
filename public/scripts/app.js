@@ -102,11 +102,5 @@ $(document).ready(function () {
         $('.container .new-tweet').slideToggle(200);
         $('.container .new-tweet form textarea').focus();
     });
-
-    //hides icons unless you hover over a posted-tweet container
-    $('.container .posted-tweet footer .icons').hide();
-    $('.container .posted-tweet').hover(function () {
-        $('.container .posted-tweet footer .icons').fadeIn(200);
-    });
 });
 

@@ -1,6 +1,7 @@
 #nav-bar {
     position: fixed;
-    top: 0;
+    display: flex;
+    flex-direction: row;
     height: 80px;
     width: 100%;
     background-color: #00a087;
@@ -10,22 +11,26 @@
 }
 
 #nav-bar .header {
+    order: 2;
+    margin: auto;
+    margin-left: 0px;
     color: #e8fdff;
     padding-left: 10px;
     font-size: 2em;
     font-weight: 300;
-    position: absolute;
     bottom: 22%;
 }
 
 #nav-bar .logo {
+    order: 1;
     height: 80px;
     width: auto;
 }
 
 #nav-bar button {
-    float: right;
+    order: 3;
     margin-top: 10px;
+    margin-left: 15px;
     height: 60px;
     width: 100px;
     color: #08A089;
