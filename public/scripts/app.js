@@ -40,9 +40,9 @@ $(document).ready(function () {
         }
     }
 
+
     //Creates individual tweet container (name, avatar, tweet, username) after tweet is submitted
     function createTweetElement(tweet) {
-        var tweetDate = new Date(tweet.created_at);
         var $tweetPassed = `
     <article class="posted-tweet">
         <header>
@@ -54,7 +54,7 @@ $(document).ready(function () {
                 <p>${escape(tweet.content.text)}</p>
             </div>
             <footer>
-                ${tweetDate.toDateString()}
+                ${moment(tweet.created_at).fromNow()}
                 <span class="icons">
                 <img src="/images/flag.png">
                 <img src="/images/retweet.png">
